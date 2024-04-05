@@ -1,35 +1,9 @@
-#!/usr/bin/python3
-from sys import argv
-import math
-if __name__ == "__main__":
-    """Factorize as many numbers as possible into a product of
-    2 smaller numbers"""
+#!/usr/bin/bash
+#RSA Factoring Challenge
 
-
-    def get_factor(num):
-        """A function that obtain the factors of a number"""
-        if num % 2 == 0:
-            factr = 2
-            print("{} = {} * {}".format(num, int(num / factr), factr))
-        else:
-            sqrt = int(math.sqrt(num)) + 1
-            for factr in range (3, sqrt, +2):
-                if num % factr == 0:
-                    print("{} = {} * {}".format(num, int(num / factr), factr))
-                    return
-                if  num % (sqrt - factr) == 0:
-                    print("{} = {} * {}".format(num, int(num / (sqrt - factr)), sqrt - factr))
-                    return
-                if num % (sqrt + factr) == 0:
-                    print("{} = {} * {}".format(num, int(num / (sqrt + factr)), sqrt + factr))
-                    return
-
-    def factors(filename):
-        """ A function that reads file and printout the content"""
-
-        with open(filename, encoding="utf-8") as mainfile:
-            for c in mainfile.readlines():
-                n = int(c)
-                res = get_factor(n)
-
-    factors(argv[1])
+FILE=$1
+while read VALUE;
+do
+	factors=($(factor $VALUE))
+    echo "$VALUE=$((VALUE/${factors[1]}))*${factors[1]}"
+done < $FILE

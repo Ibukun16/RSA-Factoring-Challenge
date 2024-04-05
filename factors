@@ -1,9 +1,10 @@
 #!/usr/bin/bash
-#RSA Factoring Challenge
+#RSA Factoring Challenge Solution
 
 FILE=$1
+
 while read VALUE;
 do
 	factors=($(factor $VALUE))
-    echo "$VALUE=$((VALUE/${factors[1]}))*${factors[1]}"
+	echo "$VALUE=$(($VALUE/${factors[1]}))*${factors[1]}"
 done < $FILE

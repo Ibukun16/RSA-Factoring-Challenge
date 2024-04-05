@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+from sys import argv
+import math
+"""Factorize as many numbers as possible into a product of
+2 smaller numbers"""
+
+
+def get_factor(num):
+    """A function that obtain the factors of a number"""
+    if num % 2 == 0:
+        div = 2
+        print("{} = {} * {}".format(num, int(num // div), div))
+    else:
+        sqrt = int(math.sqrt(num)) + 1
+        for div in range (3, sqrt, +2):
+            if num % div == 0:
+                print("{} = {} * {}".format(num, int(num // div), div))
+                return
+            if  num % (sqrt + div) == 0:
+                print("{} = {} * {}".format(num, sqrt + div, int(num // (sqrt + div))))
+                return
+            if num % (sqrt - div) == 0:
+                print("{} = {} * {}".format(num, sqrt - 1, int(num // (sqrt - div))))
+                return
+
+def factors(filename):
+    """ A function that reads file and printout the content"""
+    with open(filename, encoding="utf-8") as realfile:
+        for c in realfile.readlines():
+            n = int(c)
+            res = get_factor(n)
+
+
+if __name__ == "__main__":
+    factors(argv[1])

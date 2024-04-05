@@ -1,0 +1,44 @@
+#!/usr/bin/python3
+from sys import argv
+import math
+"""A function that obtain the two factors of a number"""
+
+def check_prime(num):
+    """A function that checks if a number is prime number"""
+    n = 3;
+    if num % 2 == 0:
+        return False
+    while n * n <= num:
+        if num % n == 0:
+            return False
+        n += 2
+    return True
+
+
+def get_factor(num):
+    """A function that obtain the factors of a given number
+    and prints them out"""
+    if num % 2 == 0:
+        fac = 2
+        print("{} = {} * {}".format(num, int(num / fac), fac))
+    else:
+        sq_root = math.sqrt(num)
+        if sq_root % 1 == 0:
+            print("{} = {} * {}".format(num, sq_root, int(num / sq_root)))
+            return
+        sq_root = int(sq_root) + 1
+        for n in range(3, sq_root, +2):
+            if num % n == 0:
+                if check_prime(n):
+                    print("{} = {} * {}".format(num, int(num / n), n))
+                    return
+
+def factors(filename):
+    """A function that read and print out filename"""
+    with open(filename, encoding="utf-8") as realfile:
+        for n in realfile.readlines():
+            c = int(n)
+            result = get_factor(c)
+
+if __name__ == "__main__":
+    factors(argv[1])
